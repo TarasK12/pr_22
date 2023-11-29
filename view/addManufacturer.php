@@ -1,5 +1,5 @@
 <?php
-require "../src/functions.php";
+require "../src/dataBaseConnection.php";
 
 if (isset($_GET['btn'])){
     $fields = ['idManufacturer', 'nameManufacturer', 'adressManufacturer'];
@@ -43,7 +43,7 @@ if (isset($_GET['btn'])){
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../src/css/styleMaufacturePage.css">
+    <link rel="stylesheet" href="css/styleMaufacturePage.css">
     <title>Site</title>
 </head>
 <body>
@@ -70,6 +70,5 @@ if (isset($_GET['btn'])){
     </fieldset>
 </form>
 </div>
-<br><br>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-require "../src/functions.php";
+require "../src/dataBaseConnection.php";
 
 if (isset($_GET['knopka'])){
 
@@ -53,7 +53,7 @@ if (isset($_GET['knopka'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../src/css/styleProductPage.css">
+    <link rel="stylesheet" href="css/styleProductPage.css">
 </head>
 
 <body>

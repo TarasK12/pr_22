@@ -1,36 +1,47 @@
 <?php
+require "dataBaseConnection.php";
 
-require "functions.php";
+function get_Table_Tovar($result){
+    echo '<table border="1"><thead>';
+    echo '<tr><th>ID товару</th><th>Назва товару</th><th>Вага товару</th><th>Ціна товару</th><th>ID виробника</th></tr></thead><tbody>';
 
-/*if (isset($_GET['btnParm'])){
-}*/
+    foreach($result as $data){
+        echo '<tr><td>' . $data['idProduct'] . '</td><td>' . $data['nameProduct'] . '</td>';
+        echo '<td>' . $data['productWeight'] . '</td><td>' . $data['priceProduct'] . '</td>';
+        echo '<td>' . $data['idManufacturer'] . '</td></tr>';
+    }
+
+    echo '</tbody></table>';
+}
+
+
 
 $pdo = dataBaseConnection();
 
-$sql = "SELECT * FROM tovar";
-$result = $pdo->query($sql);
+if(isset($_POST["submitIdManufacrurer"])){
+    $idManufacturer = $_POST['idManufacturer'];
+    $sql = "SELECT * FROM tovar WHERE idManufacturer = :idManufacturer";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':idManufacturer', $idManufacturer, PDO::PARAM_INT);
+    $stmt->execute();
 
-if ($result->rowCount() > 0) {
-    echo "<table border='1'>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Weight</th>
-                    <th>Price</th>
-                    <th>Manufacturer</th>
-                </tr>";
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>
-                    <td>" . $row["idProduct"] . "</td>
-                    <td>" . $row["nameProduct"] . "</td>
-                    <td>" . $row["productWeight"] . "</td>
-                    <td>" . $row["priceProduct"] . "</td>
-                    <td>" . $row["idManufacturer"] . "</td>
-                  </tr>";
-    }
-
-    echo "</table>";
-} else {
-    echo "0 результатів";
+    get_Table_Tovar($result);
 }
+
+if(isset($_POST["submitPriceFromTo"])){
+    $priceFrom = $_POST['priceFrom'];
+    $priceTo = $_POST['priceTo'];
+
+    $sql = "SELECT * FROM tovar WHERE priceProduct >= :priceFrom AND priceProduct <= :priceTo";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':priceFrom', $priceFrom, PDO::PARAM_INT);
+    $stmt->bindParam(':priceTo', $priceTo, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    get_Table_Tovar($result);
+}
+
