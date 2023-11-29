@@ -32,12 +32,6 @@
             Ціна до <input type="number" name="priceTo" min="0" placeholder="0">
             <input type="submit" name="submitPriceFromTo" value="Вибір в межах ціни">
         </div>
-
-        <div class="weightDiv">
-            Вага від <input type="number" name="weightFrom" >
-            Вага до <input type="number" name="weightTo">
-            <input type="submit" name="submitWeightFromTo" value="Вибір в межах ваги">
-        </div>
     </div>
 </form>
 
